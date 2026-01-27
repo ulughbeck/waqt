@@ -1,0 +1,29 @@
+# System Files
+**/.git
+**/.DS_Store
+**/node_modules
+
+# Agents
+/.codex/
+/.claude/
+/.tickets/
+tkt
+loop
+PROMPT.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+# Projects
+backend
+db
+flutter
+specs
+
+# frontend
+frontend/.output
+frontend/.vinxi
+frontend/.solid
+frontend/dist
+frontend/coverage
+frontend/.env*
