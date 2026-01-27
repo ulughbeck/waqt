@@ -1,0 +1,34 @@
+{
+  "name": "example-basic",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build && cp .output/public/_build/sw.js .output/public/sw.js && cp .output/public/_build/manifest.webmanifest .output/public/manifest.webmanifest && cp .output/public/_build/workbox-*.js .output/public/",
+    "start": "vinxi start",
+    "version": "vinxi version",
+    "test": "npx vitest run",
+    "test:watch": "npx vitest"
+  },
+  "dependencies": {
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "^1.1.0",
+    "@thisbeyond/solid-dnd": "^0.7.5",
+    "adhan": "^4.4.3",
+    "lucide-solid": "^0.562.0",
+    "solid-js": "^1.9.5",
+    "suncalc": "^1.9.0",
+    "vinxi": "^0.5.7"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "@types/suncalc": "^1.9.2",
+    "jsdom": "^27.4.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "vite-plugin-solid": "^2.11.10",
+    "vitest": "^4.0.17"
+  }
+}

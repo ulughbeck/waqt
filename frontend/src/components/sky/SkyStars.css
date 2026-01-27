@@ -1,0 +1,40 @@
+.sky-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--stars-opacity, 0);
+  transition: opacity 0.8s var(--ease-smooth);
+  will-change: opacity;
+}
+
+.sky-stars__star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: var(--star-opacity, 0.5);
+}
+
+.sky-stars__star--twinkle {
+  animation: twinkle var(--twinkle-duration, 3s) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: var(--star-opacity, 0.5);
+  }
+  50% {
+    opacity: calc(var(--star-opacity, 0.5) * 0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-stars {
+    transition: none;
+  }
+
+  .sky-stars__star--twinkle {
+    animation: none;
+  }
+}

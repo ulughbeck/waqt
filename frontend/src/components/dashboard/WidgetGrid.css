@@ -1,0 +1,60 @@
+.widget-grid {
+    display: grid;
+    gap: 12px;
+    /* Mobile: 4 columns */
+    grid-template-columns: repeat(4, 1fr);
+    /* Fixed row height to ensure consistent density */
+    grid-auto-rows: 60px;
+    padding: var(--space-md);
+}
+
+.sortable-widget {
+    display: block;
+    height: 100%;
+}
+
+@media (min-width: 641px) {
+    .widget-grid {
+        /* Tablet: 8 columns */
+        grid-template-columns: repeat(8, 1fr);
+        grid-auto-rows: 60px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .widget-grid {
+        /* Desktop: 12 columns */
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: 60px;
+    }
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-shake > div {
+  animation: shake 0.3s infinite ease-in-out;
+}
+
+.cursor-move {
+  cursor: move;
+  touch-action: none;
+}
+
+.cursor-move .widget-card--interactive {
+  cursor: move;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.widget-overlay {
+    pointer-events: none;
+    z-index: 1000;
+}

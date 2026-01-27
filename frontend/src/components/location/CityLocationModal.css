@@ -1,0 +1,136 @@
+/* Backdrop and modal container styles removed as they are handled by BottomSheet */
+
+.location-modal__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.location-modal__input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-widget-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  flex-shrink: 0;
+}
+
+.location-modal__input-icon {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.location-modal__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.location-modal__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.location-modal__clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.location-modal__clear-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+.location-modal__message {
+  padding: var(--space-md);
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.location-modal__message--offline,
+.location-modal__message--error {
+  color: var(--state-alert);
+}
+
+.location-modal__suggestions {
+  list-style: none;
+  margin: var(--space-md) 0 0 0;
+  padding: 0;
+}
+
+.location-modal__suggestion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  transition: background 0.15s ease;
+}
+
+.location-modal__suggestion:last-child {
+  border-bottom: none;
+}
+
+.location-modal__suggestion:hover,
+.location-modal__suggestion:focus {
+  background: rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+
+.location-modal__suggestion-icon {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.location-modal__input-icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  outline: none;
+}
+
+.location-modal__debug-disable-btn {
+  width: 100%;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  background: rgba(255, 59, 48, 0.1);
+  color: #ff3b30;
+  border: 1px solid rgba(255, 59, 48, 0.2);
+  border-radius: var(--radius-lg);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.location-modal__debug-disable-btn:hover {
+  background: rgba(255, 59, 48, 0.2);
+}
+
+.location-modal__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

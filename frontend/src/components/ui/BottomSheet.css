@@ -1,0 +1,114 @@
+.bottom-sheet__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200; /* Above location trigger (100) */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.bottom-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  background: var(--color-widget-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: var(--space-lg);
+  overflow-y: auto;
+  z-index: 201; /* Content above backdrop */
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s var(--ease-smooth);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 641px) {
+  .bottom-sheet__backdrop {
+    align-items: center;
+  }
+
+  .bottom-sheet {
+    width: 90%;
+    max-width: 500px;
+    border-radius: var(--radius-lg);
+    animation: fadeScale 0.3s var(--ease-smooth);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-sheet {
+    animation: none;
+  }
+}
+
+.bottom-sheet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  flex-shrink: 0;
+}
+
+.bottom-sheet__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.bottom-sheet__close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  margin-left: auto; /* Push to right if no title */
+}
+
+.bottom-sheet__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-primary);
+}
+
+.bottom-sheet__content {
+  flex: 1;
+  min-height: 50px;
+  overflow-y: auto;
+}
+
+.bottom-sheet__footer {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}

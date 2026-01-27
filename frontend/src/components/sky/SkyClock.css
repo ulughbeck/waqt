@@ -1,0 +1,15 @@
+.sky-clock {
+  font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.sky-clock__time {
+  font-size: clamp(2.4rem, 8vw, 4.8rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+}

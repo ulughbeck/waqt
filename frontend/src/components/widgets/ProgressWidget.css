@@ -1,0 +1,64 @@
+.progress-widget {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.progress-widget--compact {
+  align-items: center;
+  text-align: center;
+}
+
+.progress-widget--detailed {
+  padding: 0 var(--space-sm);
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-sm) 0;
+  height: 30px;
+  position: relative;
+}
+
+.progress-bar__segment {
+  flex: 1;
+  height: 24px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: opacity 0.3s ease;
+}
+
+.progress-bar__playhead {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FF6B35;
+  box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
+  position: absolute;
+  bottom: -4px;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.progress-bar__time-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.progress-widget__countdown {
+  font-size: var(--font-size-md);
+  text-align: center;
+  margin-top: var(--space-xs);
+}
+
+.progress-widget--compact .progress-widget__status {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}

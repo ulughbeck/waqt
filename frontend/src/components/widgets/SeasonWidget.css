@@ -1,0 +1,52 @@
+.season-widget {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.season-widget--compact {
+  align-items: center;
+  text-align: center;
+}
+
+.season-widget--detailed {
+  padding: 0 var(--space-sm);
+}
+
+.season-widget__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-xs);
+}
+
+.season-widget__title {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.season-widget__icon {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+}
+
+.season-widget__name {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.season-widget__countdown {
+  font-size: var(--font-size-md);
+  opacity: 0.7;
+  margin-top: var(--space-xs);
+}
+
+.season-widget--compact .season-widget__countdown {
+  font-size: var(--font-size-sm);
+}

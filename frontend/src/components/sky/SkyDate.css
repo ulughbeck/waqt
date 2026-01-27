@@ -1,0 +1,17 @@
+.sky-date {
+  position: absolute;
+  top: max(var(--space-md), env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: 100%;
+  
+  font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

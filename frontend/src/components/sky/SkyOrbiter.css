@@ -1,0 +1,203 @@
+.sky-orbiter {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Orbit path */
+.sky-orbiter__path {
+  position: absolute;
+  /* Centered positioning */
+  left: 50%;
+  top: var(--horizon-y); /* Horizon line */
+  transform: translate(-50%, -50%); /* Position centered on horizon */
+  
+  /* Dimensions derived from radius */
+  width: calc(var(--orbit-radius-x) * 2);
+  height: calc(var(--orbit-radius-y) * 2); /* Full ellipse height */
+  
+  /* Shape */
+  border: 2px dotted rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  
+  /* Clip to show only top half (arc) */
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+
+  /* Mask to fade near horizon */
+  mask-image: linear-gradient(to bottom, black 40%, transparent 50%);
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 50%);
+  
+  pointer-events: none;
+  z-index: 1; /* Behind sun/moon */
+}
+
+/* Sun container - positioned via CSS custom properties */
+.sky-orbiter__sun {
+  position: absolute;
+  width: var(--sun-size);
+  height: var(--sun-size);
+  left: var(--sun-x);
+  top: var(--sun-y);
+  transform: translate(-50%, -50%) scale(var(--sun-scale, 1));
+  transition: transform 1s var(--ease-smooth);
+  will-change: transform;
+  z-index: 3;
+  filter: drop-shadow(0 0 10px var(--sun-glow-color));
+}
+
+/* Sun core - bright center */
+.sky-orbiter__sun-core {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: var(--sun-core-color, #ffffff);
+  box-shadow:
+    0 0 20px var(--sun-core-color, #ffffff),
+    0 0 40px var(--sun-corona-color, #fff8e0);
+}
+
+/* Sun corona - outer glow */
+.sky-orbiter__sun-corona {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--sun-corona-color, #fff8e0) 0%,
+    transparent 70%
+  );
+  opacity: 0.8;
+}
+
+/* Large atmospheric glow behind sun */
+.sky-orbiter__sun-glow {
+  position: absolute;
+  width: clamp(200px, 25vw, 400px);
+  height: clamp(200px, 25vw, 400px);
+  left: var(--sun-x);
+  top: var(--sun-y);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--sun-glow-color, rgba(255, 180, 80, 0.4)) 0%,
+    transparent 70%
+  );
+  opacity: var(--sun-glow-opacity, 1);
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-smooth);
+  will-change: opacity;
+  z-index: 2;
+}
+
+/* Moon container */
+.sky-orbiter__moon {
+  position: absolute;
+  width: var(--moon-size);
+  height: var(--moon-size);
+  left: var(--moon-x);
+  top: var(--moon-y);
+  border-radius: 50%;
+  overflow: hidden;
+  transform: translate(-50%, -50%) rotate(var(--moon-rotation, 0deg)) scale(var(--moon-scale, 1)) scaleX(var(--moon-scale-x, 1)) translateZ(0);
+  /* Fix: Use brightness to simulate faintness instead of opacity to prevent orbit path from showing through */
+  /* opacity: var(--moon-opacity, 1); */
+  filter: brightness(var(--moon-opacity, 1));
+  transition:
+    transform 1s var(--ease-smooth),
+    filter 0.5s var(--ease-smooth);
+  will-change: transform, filter;
+  z-index: 3;
+}
+
+/* Earthshine: faint visibility of the dark side */
+.sky-orbiter__moon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(150, 170, 200, 0.15) 0%,
+    rgba(100, 120, 150, 0.08) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 3; /* On top of shadow */
+}
+
+/* Moon surface */
+.sky-orbiter__moon-surface {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 50%, #a0a0a0 100%);
+  box-shadow: inset -4px -4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Moon shadow (Phases) */
+.sky-orbiter__moon-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #0a0a12;
+  pointer-events: none;
+  z-index: 2; /* Above surface, below earthshine */
+}
+
+/* Moon craters (subtle texture) */
+.sky-orbiter__moon-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+      circle at 30% 40%,
+      rgba(0, 0, 0, 0.1) 0%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 60% 30%,
+      rgba(0, 0, 0, 0.08) 0%,
+      transparent 10%
+    ),
+    radial-gradient(
+      circle at 45% 65%,
+      rgba(0, 0, 0, 0.12) 0%,
+      transparent 12%
+    );
+}
+
+/* Moon glow */
+.sky-orbiter__moon-glow {
+  position: absolute;
+  width: calc(var(--moon-size) * 2.5);
+  height: calc(var(--moon-size) * 2.5);
+  left: var(--moon-x);
+  top: var(--moon-y);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-moon-glow) 0%,
+    transparent 70%
+  );
+  opacity: var(--moon-glow-opacity, 0.6);
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-smooth);
+  will-change: opacity;
+  z-index: 2;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sky-orbiter__sun,
+  .sky-orbiter__moon,
+  .sky-orbiter__sun-glow,
+  .sky-orbiter__moon-glow {
+    transition: none;
+  }
+}

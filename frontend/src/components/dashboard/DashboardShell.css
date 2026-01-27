@@ -1,0 +1,28 @@
+.dashboard-shell {
+  background: #000000;
+  min-height: 60vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Ambient spill at top edge - grounds the horizon */
+.dashboard-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--color-sky-horizon-glow, rgba(255,255,255,0.1)), transparent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.dashboard-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md) var(--space-xl);
+  padding-bottom: calc(64px + var(--space-lg));
+  box-sizing: border-box;
+}

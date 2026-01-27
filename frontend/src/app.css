@@ -1,0 +1,102 @@
+/* Global styles for Waqt PWA */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  background: var(--gradient-end);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Small uppercase labels for widgets */
+.label-small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Primary value display */
+.value-primary {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Secondary descriptor */
+.text-secondary {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* Button base styles */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* City override button style */
+.btn-pill {
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s var(--ease-fast), transform 0.2s var(--ease-fast);
+}
+
+.btn-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.btn-pill:active {
+  transform: translateY(0);
+}
+
+/* Card shadow utility */
+.shadow-card {
+  box-shadow: 0 12px 30px var(--color-shadow);
+}
+
+/* Visually hidden for a11y */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
