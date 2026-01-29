@@ -1,13 +1,24 @@
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#0c0f1b"/>
-      <stop offset="100%" style="stop-color:#2e1e53"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" fill="url(#skyGrad)"/>
-  <circle cx="256" cy="200" r="64" fill="#ffd05b"/>
-  <circle cx="256" cy="200" r="75" fill="#ffd05b" opacity="0.3"/>
-  <ellipse cx="256" cy="375" rx="130" ry="30" fill="#0f3f6a" opacity="0.5"/>
-  <path d="M90 345 Q256 280 422 345" stroke="rgba(255,255,255,0.15)" stroke-width="4" fill="none"/>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2_2)">
+<path d="M0 0C337.92 0 675.84 0 1024 0C1024 337.92 1024 675.84 1024 1024C686.08 1024 348.16 1024 0 1024C0 686.08 0 348.16 0 0Z" fill="#003243"/>
+<path d="M571.585 521.425C611.434 521.425 651.283 521.425 693.056 521.425C690.929 524.78 690.084 526.641 688.783 528.09C664.299 555.348 639.447 582.282 615.3 609.836C566.482 665.541 475.483 672.483 419.342 615.269C397.32 592.826 376.893 568.812 355.747 545.507C349.326 538.432 342.928 531.335 334.578 522.101C376.395 520.548 415.704 522.462 456.792 521.34C459.324 521.753 460.008 522.219 460.695 522.224C494.042 522.446 527.389 522.672 560.736 522.751C564.351 522.76 567.969 521.888 571.585 521.425Z" fill="#86B6B5"/>
+<path d="M571.937 520.196C567.886 521.331 564.265 522.2 560.645 522.191C527.258 522.112 493.872 521.887 460.485 521.665C459.797 521.661 459.112 521.197 457.63 520.841C446.388 509.223 436.577 497.558 431.632 482.19C416.417 434.915 443.514 383.639 490.943 371.062C537.291 358.771 586.067 385.497 597.686 430.464C606.529 464.688 598.247 494.764 571.937 520.196Z" fill="#E6E4D9"/>
+<rect x="493" y="130" width="41" height="113" fill="#E2E2D8"/>
+<rect x="493" y="781" width="41" height="113" fill="#E2E2D8"/>
+<rect x="894" y="491" width="41" height="113" transform="rotate(90 894 491)" fill="#E2E2D8"/>
+<rect x="243" y="491" width="41" height="113" transform="rotate(90 243 491)" fill="#E2E2D8"/>
+<rect x="171.977" y="337.373" width="40.7346" height="113.152" transform="rotate(-59.9945 171.977 337.373)" fill="#E2E2D8"/>
+<rect x="735.597" y="662.852" width="40.7346" height="113.152" transform="rotate(-59.9945 735.597 662.852)" fill="#E2E2D8"/>
+<rect x="685.289" y="170.728" width="40.7346" height="113.152" transform="rotate(30.0055 685.289 170.728)" fill="#E2E2D8"/>
+<rect x="359.811" y="734.348" width="40.7346" height="113.152" transform="rotate(30.0055 359.811 734.348)" fill="#E2E2D8"/>
+<rect x="305.042" y="190.376" width="40.7346" height="113.152" transform="rotate(-29.9232 305.042 190.376)" fill="#E2E2D8"/>
+<rect x="629.711" y="754.462" width="40.7346" height="113.152" transform="rotate(-29.9232 629.711 754.462)" fill="#E2E2D8"/>
+<rect x="832.766" y="303.369" width="40.7346" height="113.152" transform="rotate(60.0768 832.766 303.369)" fill="#E2E2D8"/>
+<rect x="268.679" y="628.038" width="40.7346" height="113.152" transform="rotate(60.0768 268.679 628.038)" fill="#E2E2D8"/>
+</g>
+<defs>
+<clipPath id="clip0_2_2">
+<rect width="1024" height="1024" fill="white"/>
+</clipPath>
+</defs>
 </svg>

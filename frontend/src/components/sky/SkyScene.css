@@ -10,7 +10,7 @@
 
 .sky-scene__clock-container {
   position: absolute;
-  top: var(--clock-top-offset);
+  top: calc(var(--clock-top-offset) + env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;

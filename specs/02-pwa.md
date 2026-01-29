@@ -26,8 +26,8 @@ The following PWA aspects are implemented or defined:
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#003243",
+  "theme_color": "#003243",
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -55,6 +55,10 @@ The following PWA aspects are implemented or defined:
 - **Maskable 512×512** — For adaptive icons (Android)
 - **180×180** — Apple touch icon (iOS)
 - **Favicon** — 32×32 and 16×16
+
+### Splash Screen Colors
+- **Background color:** `#003243`
+- **Logo:** centered
 
 ---
 
@@ -113,6 +117,33 @@ When offline:
 - [x] Apple-specific meta tags needed? (Ticket: `waq-f22a`)
 - [x] Status bar style (black-translucent)? (Ticket: `waq-f22a`)
 - [x] Handle iOS PWA limitations? (Ticket: `waq-f22a`)
+
+### iOS Startup Images (Apple Touch Startup)
+Store images in `frontend/public/splash/` and reference them from `frontend/src/entry-server.tsx`.
+
+**iPhone portrait:**
+- `iphone-se-1st.png` — 640×1136
+- `iphone-8.png` — 750×1334
+- `iphone-8-plus.png` — 1242×2208
+- `iphone-x-xs.png` — 1125×2436
+- `iphone-xr-11.png` — 828×1792
+- `iphone-xs-max-11-pro-max.png` — 1242×2688
+- `iphone-12-13-14.png` — 1170×2532
+- `iphone-12-13-14-pro-max.png` — 1284×2778
+- `iphone-14-pro.png` — 1179×2556
+- `iphone-14-pro-max.png` — 1290×2796
+
+**iPad portrait:**
+- `ipad-mini-air.png` — 1536×2048
+- `ipad-pro-10-5.png` — 1668×2224
+- `ipad-pro-11.png` — 1668×2388
+- `ipad-pro-12-9.png` — 2048×2732
+
+**iPad landscape:**
+- `ipad-mini-air-landscape.png` — 2048×1536
+- `ipad-pro-10-5-landscape.png` — 2224×1668
+- `ipad-pro-11-landscape.png` — 2388×1668
+- `ipad-pro-12-9-landscape.png` — 2732×2048
 
 ---
 
