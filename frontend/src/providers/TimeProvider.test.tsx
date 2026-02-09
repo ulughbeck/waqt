@@ -24,6 +24,8 @@ function TestConsumer(props: { onMount?: (ctx: ReturnType<typeof useTime>) => vo
     <div>
       <span data-testid="cycle">{ctx.cycle()}</span>
       <span data-testid="season">{ctx.season()}</span>
+      <span data-testid="season-next">{ctx.seasonMeta().nextSeasonLabel}</span>
+      <span data-testid="season-days">{ctx.seasonMeta().daysUntilNextSeason}</span>
       <span data-testid="sun-orbit">{ctx.orbit().sun.toFixed(2)}</span>
       <span data-testid="moon-orbit">{ctx.orbit().moon.toFixed(2)}</span>
       <span data-testid="has-solar">{ctx.solar() ? "yes" : "no"}</span>
@@ -122,6 +124,30 @@ describe("TimeProvider", () => {
 
     await waitFor(() => {
       expect(getByTestId("season").textContent).toBe("summer");
+    });
+  });
+
+  it("determines season using southern hemisphere inversion", async () => {
+    vi.setSystemTime(new Date("2026-01-21T12:00:00"));
+    const [location] = createSignal<LocationState | null>({
+      ...mockLocation,
+      lat: -33.8688,
+      lon: 151.2093,
+      city: "Sydney",
+      timezone: "Australia/Sydney",
+    });
+
+    const { getByTestId } = render(() => (
+      <DebugProvider>
+        <TimeProvider location={location}>
+          <TestConsumer />
+        </TimeProvider>
+      </DebugProvider>
+    ));
+
+    await waitFor(() => {
+      expect(getByTestId("season").textContent).toBe("summer");
+      expect(getByTestId("season-next").textContent).toBe("Fall");
     });
   });
 

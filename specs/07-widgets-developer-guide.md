@@ -49,7 +49,8 @@ The heartbeat of the application.
 - **`solar()`**: `{ sunrise, sunset, dawn, dusk, solarNoon }`.
 - **`prayer()`**: `{ fajr, dhuhr, asr, maghrib, isha }` (based on current location + settings).
 - **`cycle()`**: `'dawn' | 'day' | 'dusk' | 'night'`.
-- **`season()`**: `'winter' | 'spring' | 'summer' | 'autumn'`.
+- **`season()`**: `'winter' | 'spring' | 'summer' | 'fall'`.
+- **`seasonMeta()`**: `{ currentSeason, nextSeasonLabel, nextSeasonStart, daysUntilNextSeason }`.
 - **`helpers`**:
     - `currentPrayer()`: Returns active prayer.
     - `nextPrayer()`: Returns upcoming prayer with countdown.

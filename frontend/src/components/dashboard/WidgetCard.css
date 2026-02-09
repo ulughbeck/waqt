@@ -19,8 +19,6 @@
 
 @media (hover: hover) {
     .widget-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 22px var(--color-shadow);
         border-color: rgba(255, 255, 255, 0.18);
     }
 }

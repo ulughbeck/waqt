@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   height: 60px;
-  background: linear-gradient(to bottom, var(--color-sky-horizon-glow, rgba(255,255,255,0.1)), transparent);
+  background: linear-gradient(to bottom, rgba(110, 245, 255, 0.12), transparent);
   opacity: 0.3;
   pointer-events: none;
 }

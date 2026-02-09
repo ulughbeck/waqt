@@ -144,7 +144,7 @@ async function resolveIP(): Promise<LocationState> {
 
     const data = await response.json();
 
-    if (!data.latitude || !data.longitude) {
+    if (data.latitude == null || data.longitude == null) {
       throw new Error("Invalid IP geolocation response");
     }
 

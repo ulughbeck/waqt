@@ -129,14 +129,11 @@ export function CityLocationModal(props: CityLocationModalProps) {
 
   function handleMapPinClick() {
     const now = Date.now();
-    if (now - lastClickTime() < 500) {
-      setClickCount((c) => c + 1);
-    } else {
-      setClickCount(1);
-    }
+    const nextCount = now - lastClickTime() < 500 ? clickCount() + 1 : 1;
+    setClickCount(nextCount);
     setLastClickTime(now);
 
-    if (clickCount() === 7) {
+    if (nextCount >= 7) {
       const newState = !debug.state().enabled;
       debug.setEnabled(newState);
       setToastMessage(

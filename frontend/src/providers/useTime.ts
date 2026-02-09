@@ -7,5 +7,6 @@ export {
   type Cycle,
   type Season,
   type OrbitProgress,
+  type SeasonMeta,
   type TimeHelpers,
 } from "./TimeProvider";

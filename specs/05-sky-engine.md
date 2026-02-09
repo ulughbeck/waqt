@@ -50,7 +50,7 @@ Sky Engine consumes the following signals from `TimeProvider`/`LocationProvider`
 - `orbit`: normalized progress `{ sun: number, moon: number }` (0-1 along arc). Moon progress can exceed 1.0 (1.0-2.0) to indicate it is below the horizon.
 - `solar`: `{ sunrise, sunset, dawn, dusk, solarNoon }` with timestamps.
 - `prayer`/`helpers`: optional (e.g., `nextPrayer` for highlighting widget states) but not strictly required for the Sky Engine.
-- `season`: `'winter' | 'spring' | 'summer' | 'autumn'` for ambient tweaks if needed.
+- `season`: `'winter' | 'spring' | 'summer' | 'fall'` for ambient tweaks if needed.
 - `location.city`: for the bottom bar label; not strictly part of the sky but accessible for text overlays.
 
 ## Mockup references

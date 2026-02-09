@@ -40,7 +40,12 @@ This spec drills into the card that shows the current calendar season plus a cou
 - **`2x2` (Optional):** Simplified card with just icon and "Ends in X days".
 
 ### Layout
-- Reuse the `WidgetCard` container; the card's `title` area says the current season ("Spring"), the body copy shows the countdown ("ends in 25 days"), and a **season-specific icon** sits on the right for visual flavor.
+- Reuse the `WidgetCard` container with concise copy.
+- **`4x2` copy format (required):**
+  - Line 1: current season only (Title Case), e.g. `Winter`
+  - Line 2: countdown only, e.g. `ends in 19 days`
+- Avoid redundant labels like "Current Season" or repeating the season name in the countdown sentence.
+- A **season-specific icon** sits on the right for visual flavor.
 
 ### Season Icons
 Each season displays a unique icon that changes dynamically:

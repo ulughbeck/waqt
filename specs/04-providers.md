@@ -160,7 +160,12 @@ Maintain a reactive object (via Solid signals) containing:
 - `moonPhase`: object containing illumination data (fraction, phase, angle) from suncalc.
 - `solar`: object `{ sunrise, solarNoon, sunset, dusk, dawn, dayLength }` (ISO strings or timestamps).
 - `prayer`: object with each prayer time ISO string/timestamp plus optional metadata (e.g., `isCurrent`, `timeUntil`) and `nextPrayer` pointer.
-- `season`: derived string (`'winter' | 'spring' | 'summer' | 'autumn'`) based on local date and hemisphere heuristics.
+- `season`: derived string (`'winter' | 'spring' | 'summer' | 'fall'`) based on local date and hemisphere heuristics.
+- `seasonMeta`: object
+  - `currentSeason`: `'winter' | 'spring' | 'summer' | 'fall'`
+  - `nextSeasonLabel`: display label for upcoming season (`"Winter" | "Spring" | "Summer" | "Fall"`)
+  - `nextSeasonStart`: `Date` at local midnight for the upcoming season boundary
+  - `daysUntilNextSeason`: whole days remaining (`Math.max(0, floor(diffMs / dayMs))`)
 - `isOffline`: boolean (true when no network and relying on cached location). Could be derived from `navigator.onLine` plus fetch attempts.
 
 ### Field naming conventions

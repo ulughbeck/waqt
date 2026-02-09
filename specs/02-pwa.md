@@ -96,8 +96,8 @@ When offline:
 
 ### Install Prompt
 - [x] Should we show a custom install banner? **Yes.**
-- [x] When to prompt? **First visit after 40 seconds.**
-- [x] Dismiss behavior — **Show at most once per visit; if dismissed, show again on next visit after 40 seconds.**
+- [x] When to prompt? **First visit after 40 seconds, only if `beforeinstallprompt` is available.**
+- [x] Dismiss behavior — **Show at most once per visit; if dismissed, do not show again in the same visit. Show again on the next visit if still installable.**
 
 ### Push Notifications
 - [x] Do we want prayer time notifications? **No for now.**
@@ -163,7 +163,8 @@ Add iOS-specific tags in `frontend/src/entry-server.tsx`:
 - `viewport-fit=cover` to allow full-bleed layouts on devices with notches.
 
 ### iOS Install Behavior + Limitations
-- Install prompt: iOS does not support the `beforeinstallprompt` event, so we cannot trigger a native install prompt. Use the custom install banner to guide users to Share → Add to Home Screen.
+- Install prompt: iOS does not support the `beforeinstallprompt` event, so we cannot trigger a native install prompt.
+- Banner gating: the install banner is tied to `beforeinstallprompt` availability. Browsers without that event (including iOS) will not show the prompt-driven install banner.
 - Browser support: iOS 16.3 and earlier only allow installation from Safari. iOS 16.4+ allows installation from the Share menu in Safari, Chrome, Edge, Firefox, and Orion.
 - Standalone mode: Status bar styling only works when `apple-mobile-web-app-capable` is enabled.
 

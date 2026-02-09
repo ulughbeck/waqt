@@ -2,30 +2,83 @@ import { Show, createMemo, For } from "solid-js";
 import { WidgetCard } from "../dashboard/WidgetCard";
 import { useTime } from "~/providers/useTime";
 import { WidgetProps } from "./types";
-import { formatWidgetTime } from "../../services/format";
+import { formatCountdown, formatWidgetTime } from "../../services/format";
 import "./ProgressWidget.css";
+
+const SEGMENT_COUNT = 24;
+
+const DAY_SEGMENT_COLORS = [
+  "#4A90D9", "#5398DD", "#5EA1E1", "#6BB3E0",
+  "#FF6B35", "#FF7B3B", "#FF8C42", "#FF9F5A",
+  "#FFA84F", "#FFB552", "#FFC55A", "#FFD700",
+  "#FFD700", "#FFC55A", "#FFB552", "#FFA84F",
+  "#FF9F5A", "#FF8C42", "#FF7B3B", "#FF6B35",
+  "#6BB3E0", "#5EA1E1", "#5398DD", "#4A90D9",
+];
+
+const NIGHT_SEGMENT_COLORS = [
+  "#FF6B35", "#F05F41", "#E85A4F", "#CC4A63",
+  "#6B457F", "#5C3D7A", "#4A4278", "#3D4A7A",
+  "#314A76", "#2B4A6F", "#223B59", "#1A1A2E",
+  "#0D0D1A", "#1A1A2E", "#223B59", "#2B4A6F",
+  "#3D4A7A", "#4A4278", "#5C3D7A", "#6B457F",
+  "#CC4A63", "#E85A4F", "#F05F41", "#FF6B35",
+];
 
 export function ProgressWidget(props: WidgetProps) {
   const { cycle, helpers, time } = useTime();
+  const isNight = createMemo(() => cycle() === "night");
+  const phaseLabel = createMemo(() => (isNight() ? "Night" : "Day"));
 
-  // Basic progress calculation (simplified)
+  const window = createMemo(() =>
+    isNight() ? helpers.getNightWindow() : helpers.getDayWindow()
+  );
+
+  const hasValidWindow = createMemo(() => {
+    const w = window();
+    return Boolean(w && w.end.getTime() > w.start.getTime());
+  });
+
   const progress = createMemo(() => {
+    if (!hasValidWindow()) return 0.5;
+
     const now = time().getTime();
-    const window = cycle() === "night" ? helpers.getNightWindow() : helpers.getDayWindow();
-    if (!window) return 0.5;
-    
-    const start = window.start.getTime();
-    const end = window.end.getTime();
-    if (end <= start) return 0.5;
+    const w = window()!;
+    const start = w.start.getTime();
+    const end = w.end.getTime();
 
     return Math.max(0, Math.min(1, (now - start) / (end - start)));
   });
 
   const timeLabels = createMemo(() => {
-      const window = cycle() === "night" ? helpers.getNightWindow() : helpers.getDayWindow();
-      if (!window) return { start: "--:--", end: "--:--" };
-      return { start: formatWidgetTime(window.start), end: formatWidgetTime(window.end) };
+      if (!hasValidWindow()) return { start: "--:--", end: "--:--" };
+      const w = window()!;
+      return { start: formatWidgetTime(w.start), end: formatWidgetTime(w.end) };
   });
+
+  const remainingSeconds = createMemo(() => {
+    if (!hasValidWindow()) return 0;
+    const now = time().getTime();
+    const end = window()!.end.getTime();
+    return Math.max(0, Math.floor((end - now) / 1000));
+  });
+
+  const countdownText = createMemo(() => {
+    if (!hasValidWindow()) return "Sunrise/Sunset unavailable";
+    return `${phaseLabel()} ends ${formatCountdown(remainingSeconds())}`;
+  });
+
+  const progressAriaLabel = createMemo(() => {
+    if (!hasValidWindow()) return `${phaseLabel()} progress unavailable`;
+    return `${phaseLabel()} progress: ${Math.round(progress() * 100)}% complete`;
+  });
+
+  const liveModeLabel = createMemo(() => {
+    if (!hasValidWindow()) return `${phaseLabel()} progress unavailable`;
+    return `${phaseLabel()} progress mode`;
+  });
+
+  const segmentColors = createMemo(() => (isNight() ? NIGHT_SEGMENT_COLORS : DAY_SEGMENT_COLORS));
 
   return (
     <WidgetCard 
@@ -38,28 +91,38 @@ export function ProgressWidget(props: WidgetProps) {
         fallback={
           <div class="progress-widget progress-widget--compact">
             <div class="progress-widget__status">
-               {cycle() === 'night' ? 'Night' : 'Day'}
+               {phaseLabel()}
             </div>
-            <div>
-               {Math.round(progress() * 100)}%
+            <div class="progress-widget__compact-value">
+              {hasValidWindow() ? `${Math.round(progress() * 100)}%` : "Unavailable"}
             </div>
           </div>
         }
       >
         <div class="progress-widget progress-widget--detailed">
+          <span class="sr-only" aria-live="polite">
+            {liveModeLabel()}
+          </span>
           <div class="progress-bar__time-labels">
             <span>{timeLabels().start}</span>
             <span>{timeLabels().end}</span>
           </div>
           
-          <div class="progress-bar" role="progressbar" aria-valuenow={Math.round(progress() * 100)} aria-valuemin="0" aria-valuemax="100">
-             <For each={Array(24).fill(0)}>
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-valuenow={Math.round(progress() * 100)}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-label={progressAriaLabel()}
+          >
+             <For each={Array(SEGMENT_COUNT).fill(0)}>
                {(_, i) => (
                   <div class="progress-bar__segment" 
+                       aria-hidden="true"
                        style={{ 
-                         opacity: (i / 24) > progress() ? 0.3 : 1,
-                         // TODO: Actual gradient colors
-                         "background-color": cycle() === 'night' ? '#2B4A6F' : '#FFD700'
+                         opacity: ((i() + 1) / SEGMENT_COUNT) > progress() ? 0.3 : 1,
+                         "background-color": segmentColors()[i()]
                        }} 
                   />
                )}
@@ -68,7 +131,7 @@ export function ProgressWidget(props: WidgetProps) {
           </div>
 
           <div class="progress-widget__countdown">
-             {cycle() === 'night' ? 'Night' : 'Day'} ends in ...
+             {countdownText()}
           </div>
         </div>
       </Show>

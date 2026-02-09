@@ -151,7 +151,7 @@
   color: var(--color-text-primary);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -167,7 +167,7 @@
 .prayer-settings__select:focus {
   outline: none;
   border-color: var(--color-accent-primary);
-  box-shadow: 0 0 0 2px rgba(var(--color-accent-primary-rgb, 66, 153, 225), 0.25);
+  box-shadow: 0 0 0 2px rgba(110, 245, 255, 0.25);
 }
 
 .prayer-settings__select option {
@@ -222,7 +222,7 @@
 
 .prayer-settings__radio-input:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(var(--color-accent-primary-rgb, 66, 153, 225), 0.25);
+  box-shadow: 0 0 0 2px rgba(110, 245, 255, 0.25);
 }
 
 .prayer-settings__hint {

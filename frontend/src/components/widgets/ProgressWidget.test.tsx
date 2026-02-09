@@ -25,7 +25,7 @@ describe("ProgressWidget", () => {
     expect(container.querySelector("[role=\"progressbar\"]")).not.toBeNull();
     expect(screen.getByText("06:00")).toBeDefined();
     expect(screen.getByText("18:00")).toBeDefined();
-    expect(screen.getByText("Day ends in ...")).toBeDefined();
+    expect(screen.getByText("Day ends in 6h")).toBeDefined();
   });
 
   it("renders compact view when size is 2x2", () => {

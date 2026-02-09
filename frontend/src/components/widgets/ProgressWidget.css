@@ -52,13 +52,17 @@
 }
 
 .progress-widget__countdown {
-  font-size: var(--font-size-md);
+  font-size: 1rem;
   text-align: center;
   margin-top: var(--space-xs);
 }
 
 .progress-widget--compact .progress-widget__status {
-  font-size: var(--font-size-md);
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: var(--space-xs);
+}
+
+.progress-widget__compact-value {
+  font-size: 1rem;
 }

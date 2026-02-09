@@ -1,0 +1,88 @@
+.pwa-install-banner {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--space-lg) + 4.5rem);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  width: min(560px, calc(100% - 2rem));
+  background: rgba(11, 20, 34, 0.92);
+  border: 1px solid var(--color-widget-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 32px var(--color-shadow);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  animation: pwa-install-banner-enter 0.4s var(--ease-smooth);
+}
+
+.pwa-install-banner__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pwa-install-banner__title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.pwa-install-banner__message {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.pwa-install-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.pwa-install-banner__button {
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: transform 0.2s var(--ease-fast), background 0.2s var(--ease-fast);
+}
+
+.pwa-install-banner__button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.pwa-install-banner__button--primary {
+  background: rgba(110, 245, 255, 0.2);
+  color: var(--color-text-primary);
+}
+
+.pwa-install-banner__button--primary:hover {
+  background: rgba(110, 245, 255, 0.3);
+}
+
+@keyframes pwa-install-banner-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .pwa-install-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pwa-install-banner__actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

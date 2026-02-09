@@ -5,11 +5,12 @@ This widget implements the **segmented progress bar** and countdown copy shown i
 ## Inputs
 - `timeContext.cycle`: `dawn | day | dusk | night` from `TimeProvider`.
 - `timeContext.clock`: the live Date signal.
-- `timeContext.solar`: object containing `sunrise`, `sunset`, `dawnEnd`, `duskStart`, and optionally explicit `nightStart`/`nightEnd` values (default to `sunset`/`sunrise` when missing).
+- `timeContext.helpers.getDayWindow()`: returns `{ start, end }` for day progress (typically sunrise → sunset).
+- `timeContext.helpers.getNightWindow()`: returns `{ start, end }` for night progress (typically dusk → next dawn).
 - `timeContext.helpers.timeUntilNextSolarEvent()` or equivalents, if available, to surface human-friendly countdown text.
 
 ## Behavior
-- Determine whether to show the **day** progress bar or the **night** progress bar by looking at `cycle`. Treat `dawn`, `day`, and `dusk` as the day phase so the widget tracks sunrise→sunset. Treat `night` as the night phase that tracks night start→night end (where night start is generally `solar.duskStart` or `solar.sunset`, and night end is `solar.dawnEnd` or the next sunrise).
+- Determine whether to show the **day** progress bar or the **night** progress bar by looking at `cycle`. Treat `dawn`, `day`, and `dusk` as the day phase so the widget tracks sunrise→sunset. Treat `night` as the night phase that tracks dusk→next dawn.
 - Compute the progress value:
   * `dayProgress = clamp((clock - sunrise) / (sunset - sunrise), 0, 1)` when tracking day.
   * `nightProgress = clamp((clock - nightStart) / (nightEnd - nightStart), 0, 1)` when tracking night.
@@ -20,7 +21,10 @@ This widget implements the **segmented progress bar** and countdown copy shown i
 - The widget also shows countdown text:
   * Day view: `Day ends in 2h 17m` derived from `sunset - clock`.
   * Night view: `Night ends in 11h 50m` derived from `nightEnd - clock`.
-- If the times required for the current segment are missing (polar regions, missing cache), show a fallback message such as "Sunrise/Sunset unavailable" and keep the progress bar at 50% while disabling animations.
+- If the window required for the current segment is missing/invalid (`!window` or `end <= start`):
+  - Detailed (`4x2`): show labels `--:--` and message `Sunrise/Sunset unavailable`
+  - Compact (`2x2`): show `Unavailable`
+  - Keep progress at `50%`
 
 ## Visual layout — Segmented Bar Design
 
@@ -154,7 +158,7 @@ const nightGradient = [
 
 ## Accessibility
 - The progress bar container should expose `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, and `aria-valuenow` attributes reflecting the clamped progress value plus an `aria-label` such as "Day progress: 43% complete" or "Night progress: 62% complete."
-- Provide screen-reader-friendly text for the countdown copy, e.g., `aria-live="polite"` so that when the clock transitions from day to night the new label is announced.
+- Provide a polite live announcement for **mode changes only** (day/night/fallback), not per-second countdown updates.
 - Each segment can be `aria-hidden="true"` since the overall progressbar role conveys the information.
 
 ## Notes

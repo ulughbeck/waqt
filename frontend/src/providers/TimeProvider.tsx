@@ -76,7 +76,14 @@ function writePrayerSettings(settings: PrayerSettings): void {
 }
 
 export type Cycle = SkyCycle;
-export type Season = "winter" | "spring" | "summer" | "autumn";
+export type Season = "winter" | "spring" | "summer" | "fall";
+
+export interface SeasonMeta {
+  currentSeason: Season;
+  nextSeasonLabel: "Winter" | "Spring" | "Summer" | "Fall";
+  nextSeasonStart: Date;
+  daysUntilNextSeason: number;
+}
 
 export interface SolarData {
   sunrise: Date;
@@ -139,6 +146,7 @@ export interface TimeContextValue {
   orbit: Accessor<OrbitProgress>;
   moonPhase: Accessor<MoonPhase | null>;
   season: Accessor<Season>;
+  seasonMeta: Accessor<SeasonMeta>;
   helpers: TimeHelpers;
   refreshTiming: () => void;
   getPrayerSettings: () => PrayerSettings;
@@ -454,12 +462,70 @@ export function computeOrbitProgress(time: Date, solar: SolarData, lat: number, 
   };
 }
 
-function determineSeason(date: Date): Season {
+function determineSeason(date: Date, lat?: number): Season {
   const month = date.getMonth();
-  if (month >= 2 && month <= 4) return "spring";
-  if (month >= 5 && month <= 7) return "summer";
-  if (month >= 8 && month <= 10) return "autumn";
-  return "winter";
+  const isSouthHemisphere = (lat ?? 0) < 0;
+
+  if (!isSouthHemisphere) {
+    if (month >= 2 && month <= 4) return "spring";
+    if (month >= 5 && month <= 7) return "summer";
+    if (month >= 8 && month <= 10) return "fall";
+    return "winter";
+  }
+
+  if (month >= 2 && month <= 4) return "fall";
+  if (month >= 5 && month <= 7) return "winter";
+  if (month >= 8 && month <= 10) return "spring";
+  return "summer";
+}
+
+function toSeasonLabel(season: Season): "Winter" | "Spring" | "Summer" | "Fall" {
+  if (season === "winter") return "Winter";
+  if (season === "spring") return "Spring";
+  if (season === "summer") return "Summer";
+  return "Fall";
+}
+
+function computeSeasonMeta(date: Date, lat?: number): SeasonMeta {
+  const year = date.getFullYear();
+  const isSouthHemisphere = (lat ?? 0) < 0;
+  const currentSeason = determineSeason(date, lat);
+
+  const boundarySeasons: Array<{ month: number; day: number; season: Season }> = isSouthHemisphere
+    ? [
+        { month: 2, day: 1, season: "fall" },
+        { month: 5, day: 1, season: "winter" },
+        { month: 8, day: 1, season: "spring" },
+        { month: 11, day: 1, season: "summer" },
+      ]
+    : [
+        { month: 2, day: 1, season: "spring" },
+        { month: 5, day: 1, season: "summer" },
+        { month: 8, day: 1, season: "fall" },
+        { month: 11, day: 1, season: "winter" },
+      ];
+
+  const boundaries = [
+    ...boundarySeasons.map((entry) => ({
+      season: entry.season,
+      start: new Date(year, entry.month, entry.day, 0, 0, 0, 0),
+    })),
+    ...boundarySeasons.map((entry) => ({
+      season: entry.season,
+      start: new Date(year + 1, entry.month, entry.day, 0, 0, 0, 0),
+    })),
+  ].sort((a, b) => a.start.getTime() - b.start.getTime());
+
+  const nextBoundary = boundaries.find((boundary) => boundary.start.getTime() > date.getTime()) ?? boundaries[0];
+  const diffMs = nextBoundary.start.getTime() - date.getTime();
+  const dayMs = 24 * 60 * 60 * 1000;
+
+  return {
+    currentSeason,
+    nextSeasonLabel: toSeasonLabel(nextBoundary.season),
+    nextSeasonStart: nextBoundary.start,
+    daysUntilNextSeason: Math.max(0, Math.floor(diffMs / dayMs)),
+  };
 }
 
 interface TimeProviderProps {
@@ -542,7 +608,8 @@ export const TimeProvider: ParentComponent<{ location: Accessor<LocationState | 
     return computeOrbitProgress(t, s, loc.lat, loc.lon);
   });
 
-  const season = createMemo<Season>(() => determineSeason(time()));
+  const season = createMemo<Season>(() => determineSeason(time(), props.location()?.lat));
+  const seasonMeta = createMemo<SeasonMeta>(() => computeSeasonMeta(time(), props.location()?.lat));
 
   function refreshTiming(forceRecalculate = false): void {
     if (isRefreshing) return;
@@ -816,6 +883,7 @@ export const TimeProvider: ParentComponent<{ location: Accessor<LocationState | 
     orbit,
     moonPhase,
     season,
+    seasonMeta,
     helpers,
     refreshTiming: () => refreshTiming(),
     getPrayerSettings,
