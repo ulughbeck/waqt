@@ -10,13 +10,13 @@ services:
       - traefik.docker.network=public
 
       # Route by domain
-      - traefik.http.routers.delegence.rule=Host(`waqt.fyi`) || Host(`www.waqt.fyi`)
-      - traefik.http.routers.delegence.entrypoints=websecure
-      - traefik.http.routers.delegence.tls=true
-      - traefik.http.routers.delegence.tls.certresolver=letsencrypt
+      - traefik.http.routers.waqt.rule=Host(`waqt.fyi`) || Host(`www.waqt.fyi`)
+      - traefik.http.routers.waqt.entrypoints=websecure
+      - traefik.http.routers.waqt.tls=true
+      - traefik.http.routers.waqt.tls.certresolver=letsencrypt
 
       # Container port nginx listens on
-      - traefik.http.services.delegence.loadbalancer.server.port=80
+      - traefik.http.services.waqt.loadbalancer.server.port=80
 
 networks:
   public:
