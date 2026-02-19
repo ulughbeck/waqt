@@ -149,7 +149,12 @@ The Widget Grid determines which variant to render based on the current breakpoi
 
 ## Data & State
 - Widgets consume `LocationProvider` + `TimeProvider`.
-- Grid layout state (which widget uses which size variant) will eventually be persisted in `localStorage`.
+- Grid layout state is persisted in `localStorage` (`waqt.layout`).
+- On load, saved layout is reconciled against current `DEFAULT_LAYOUT`:
+  - Keep existing saved widgets and their order.
+  - Append any widget types that exist in `DEFAULT_LAYOUT` but are missing from saved layout.
+  - Normalize invalid saved sizes to each widget's registry default size.
+  - Ignore unknown/removed widget types not present in registry.
 
 ## Grid Customization (Edit Mode)
 
@@ -171,13 +176,21 @@ The Widget Grid determines which variant to render based on the current breakpoi
 #### 2. Persistence (`waqt.layout`)
 Layout state is stored in `localStorage` key `waqt.layout` as an array of widget definitions.
 
+**Load reconciliation behavior:**
+- Parse stored layout.
+- Preserve existing user widgets in saved order.
+- Append missing widgets from current `DEFAULT_LAYOUT` to the end.
+- For each stored widget, if saved `size` is not in registry `supportedSizes`, fallback to registry `defaultSize`.
+- Drop unknown widget types.
+
 **Schema:**
 ```json
 [
-  { "id": "prayer-1", "type": "PRAYER", "size": "4x2" },
+  { "id": "progress-1", "type": "PROGRESS", "size": "4x2" },
+  { "id": "year-map-1", "type": "YEAR_MAP", "size": "4x2" },
   { "id": "solar-1", "type": "SOLAR", "size": "2x2" },
   { "id": "season-1", "type": "SEASON", "size": "2x2" },
-  { "id": "progress-1", "type": "PROGRESS", "size": "4x2" }
+  { "id": "prayer-1", "type": "PRAYER", "size": "4x2" }
 ]
 ```
 
@@ -192,6 +205,7 @@ The code maintains a registry of available widget types and their allowed sizes 
 | `SOLAR`     | `2x2`        | `['2x2', '4x2']`|
 | `SEASON`    | `2x2`        | `['2x2', '4x2']`|
 | `PROGRESS`  | `4x2`        | `['4x2']`       |
+| `YEAR_MAP`  | `4x2`        | `['4x2']`       |
 | `DEBUG`     | `4x2`        | `['4x2']`       |
 
 *(Note: `4x2` is the standard wide banner, `2x2` is the small square)*

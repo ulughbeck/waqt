@@ -12,20 +12,13 @@ vi.mock("~/providers/useTime", () => ({
 }));
 
 describe("YearMapWidget", () => {
-  it("renders detailed year map in 4x2 size", () => {
+  it("renders year map in 4x2 size", () => {
     const { container } = render(() => <YearMapWidget size="4x2" />);
 
     expect(container.querySelectorAll(".year-map-widget__cell").length).toBe(365);
     expect(container.querySelectorAll(".year-map-widget__cell--today").length).toBe(1);
     expect(screen.getByText("315d left")).toBeDefined();
     expect(screen.getByText("14%")).toBeDefined();
-  });
-
-  it("renders compact month view in 2x2 size", () => {
-    const { container } = render(() => <YearMapWidget size="2x2" />);
-
-    expect(screen.getByText("Feb")).toBeDefined();
-    expect(screen.getByText("19/28 days")).toBeDefined();
-    expect(container.querySelector(".year-map-widget__compact-grid")).not.toBeNull();
+    expect(container.querySelector(".year-map-widget__compact-grid")).toBeNull();
   });
 });

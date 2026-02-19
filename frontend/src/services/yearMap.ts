@@ -29,7 +29,27 @@ export interface YearMapModel {
   monthMarkers: MonthMarker[];
 }
 
+export interface YearMapCellSizeInput {
+  containerWidth: number;
+  columns: number;
+  gap: number;
+  minSize: number;
+  maxSize: number;
+  fillRatio: number;
+}
+
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+export function computeYearMapCellSize(input: YearMapCellSizeInput): number {
+  const { containerWidth, columns, gap, minSize, maxSize, fillRatio } = input;
+  if (columns <= 0 || containerWidth <= 0) return minSize;
+
+  const clampedFillRatio = Math.min(1, Math.max(0, fillRatio));
+  const available = containerWidth * clampedFillRatio - (columns - 1) * gap;
+  const raw = available / columns;
+  const clamped = Math.min(maxSize, Math.max(minSize, raw));
+  return Number.isFinite(clamped) ? clamped : minSize;
+}
 
 function getLocalDateStart(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -119,24 +139,5 @@ export function getYearMapModel(now: Date): YearMapModel {
     },
     totalWeeks,
     monthMarkers,
-  };
-}
-
-export function getCurrentMonthProgress(now: Date): {
-  monthLabel: string;
-  dayOfMonth: number;
-  totalDaysInMonth: number;
-  progress: number;
-} {
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const dayOfMonth = now.getDate();
-  const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
-
-  return {
-    monthLabel: now.toLocaleDateString("en-US", { month: "short" }),
-    dayOfMonth,
-    totalDaysInMonth,
-    progress: dayOfMonth / totalDaysInMonth,
   };
 }

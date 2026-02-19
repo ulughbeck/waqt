@@ -27,7 +27,7 @@ When Debug Mode is ON, the **Location Modal** transforms to include developer co
 
 This widget renders telemetry from the Sky Engine directly into the dashboard grid, appearing **only** when Debug Mode is active.
 
-- **Position**: Rendered wherever it sits in the current layout order (default layout places it last).
+- **Position**: When Debug Mode is ON, debug widget is pinned first in the grid.
 - **Style**: Tech/Terminal aesthetic (Monospace font, Green/Cyan accents).
 
 ### Supported Variants

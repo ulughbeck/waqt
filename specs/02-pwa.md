@@ -107,7 +107,7 @@ When offline:
 ### Update Strategy
 - [x] Update notifications: show a bottom banner when a new version is ready.
 - [x] Refresh flow: user taps **Refresh** to reload the page and activate the new SW.
-- [x] Offline ready: show a lightweight banner when assets are cached.
+- [x] Offline ready: no user-facing "offline ready" banner.
 
 ### Splash Screen
 - [x] Custom splash screen design: **Primary background color + centered logo.**

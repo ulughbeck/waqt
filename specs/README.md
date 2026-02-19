@@ -14,5 +14,6 @@ Design documentation for Waqt.
 10. [10-solar-times-widget.md](./10-solar-times-widget.md) – Sunset/Sunrise and Night times.
 11. [11-prayer-widget.md](./11-prayer-widget.md) – Next prayer, detailed view, prayer settings.
 12. [12-debug-widget.md](./12-debug-widget.md) – Debug mode, telemetry widget, developer controls.
+13. [13-year-map-widget.md](./13-year-map-widget.md) – Year day-progress map widget (`4x2` only).
 
 Keep this index updated whenever a new spec file is added.

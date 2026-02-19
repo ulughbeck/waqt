@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  getCurrentMonthProgress,
+  computeYearMapCellSize,
   getDayLevel,
   getTotalDaysInYear,
   getWeekdayIndexMondayFirst,
@@ -48,11 +48,38 @@ describe("yearMap", () => {
     expect(getDayLevel(new Date("2025-12-01T00:00:00"), today)).toBe(1); // past
   });
 
-  it("calculates current month progress", () => {
-    const month = getCurrentMonthProgress(new Date("2026-02-10T12:00:00"));
-    expect(month.monthLabel).toBe("Feb");
-    expect(month.dayOfMonth).toBe(10);
-    expect(month.totalDaysInMonth).toBe(28);
-    expect(month.progress).toBeCloseTo(10 / 28, 5);
+  it("computes responsive cell size with clamping", () => {
+    const midSize = computeYearMapCellSize({
+      containerWidth: 375,
+      columns: 41,
+      gap: 1.5,
+      minSize: 4,
+      maxSize: 8,
+      fillRatio: 1,
+    });
+    expect(midSize).toBeGreaterThan(4);
+    expect(midSize).toBeLessThan(8);
+
+    expect(
+      computeYearMapCellSize({
+        containerWidth: 180,
+        columns: 41,
+        gap: 1.5,
+        minSize: 4,
+        maxSize: 8,
+        fillRatio: 1,
+      })
+    ).toBe(4);
+
+    expect(
+      computeYearMapCellSize({
+        containerWidth: 900,
+        columns: 41,
+        gap: 1.5,
+        minSize: 4,
+        maxSize: 8,
+        fillRatio: 1,
+      })
+    ).toBe(8);
   });
 });

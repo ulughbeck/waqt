@@ -18,14 +18,13 @@
   justify-content: center;
   min-height: 0;
   width: 100%;
-  padding-inline: var(--space-md);
 }
 
 .year-map-widget__grid {
   --year-map-columns: 37;
   --year-map-rows: 9;
-  --year-map-gap: 2px;
-  --year-map-cell-size: clamp(4px, 0.62vw, 6px);
+  --year-map-gap: 1.5px;
+  --year-map-cell-size: 5px;
   display: grid;
   grid-template-columns: repeat(var(--year-map-columns), var(--year-map-cell-size));
   grid-template-rows: repeat(var(--year-map-rows), var(--year-map-cell-size));
@@ -36,35 +35,29 @@
   justify-content: center;
 }
 
-.year-map-widget__cell,
-.year-map-widget__legend-cell {
+.year-map-widget__cell {
   width: var(--year-map-cell-size, 4px);
   height: var(--year-map-cell-size, 4px);
   border-radius: 999px;
 }
 
-.year-map-widget__cell--level-0,
-.year-map-widget__legend-cell.year-map-widget__cell--level-0 {
+.year-map-widget__cell--level-0 {
   background: rgba(255, 255, 255, 0.16);
 }
 
-.year-map-widget__cell--level-1,
-.year-map-widget__legend-cell.year-map-widget__cell--level-1 {
+.year-map-widget__cell--level-1 {
   background: rgba(255, 255, 255, 0.92);
 }
 
-.year-map-widget__cell--level-2,
-.year-map-widget__legend-cell.year-map-widget__cell--level-2 {
+.year-map-widget__cell--level-2 {
   background: rgba(255, 255, 255, 0.92);
 }
 
-.year-map-widget__cell--level-3,
-.year-map-widget__legend-cell.year-map-widget__cell--level-3 {
+.year-map-widget__cell--level-3 {
   background: rgba(255, 255, 255, 0.92);
 }
 
-.year-map-widget__cell--level-4,
-.year-map-widget__legend-cell.year-map-widget__cell--level-4 {
+.year-map-widget__cell--level-4 {
   background: #ff6b35;
 }
 
@@ -87,54 +80,4 @@
 .year-map-widget__footer-separator,
 .year-map-widget__footer-secondary {
   color: var(--color-text-muted);
-}
-
-.year-map-widget--compact {
-  justify-content: center;
-  gap: 0.35rem;
-}
-
-.year-map-widget__compact-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.76rem;
-  font-weight: 600;
-}
-
-.year-map-widget__compact-subtitle {
-  font-size: 0.65rem;
-  color: var(--color-text-muted);
-}
-
-.year-map-widget__compact-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-}
-
-.year-map-widget__compact-cell {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.year-map-widget__compact-cell--done {
-  background: rgba(115, 197, 255, 0.65);
-}
-
-.year-map-widget__compact-cell--future {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.year-map-widget__compact-cell--today {
-  background: rgba(115, 197, 255, 0.8);
-  outline: 1px solid var(--color-accent-primary);
-}
-
-@media (max-width: 640px) {
-  .year-map-widget__grid {
-    --year-map-gap: 1.5px;
-    --year-map-cell-size: clamp(3px, 0.95vw, 4.5px);
-  }
 }

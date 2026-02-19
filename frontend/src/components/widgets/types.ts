@@ -26,6 +26,6 @@ export const WIDGET_REGISTRY: Record<
   SOLAR: { defaultSize: "2x2", supportedSizes: ["2x2", "4x2"] },
   SEASON: { defaultSize: "2x2", supportedSizes: ["2x2", "4x2"] },
   PROGRESS: { defaultSize: "4x2", supportedSizes: ["4x2"] },
-  YEAR_MAP: { defaultSize: "4x2", supportedSizes: ["4x2", "2x2"] },
+  YEAR_MAP: { defaultSize: "4x2", supportedSizes: ["4x2"] },
   DEBUG: { defaultSize: "4x2", supportedSizes: ["4x2"] },
 };

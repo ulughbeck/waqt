@@ -24,6 +24,39 @@ const DEFAULT_LAYOUT: WidgetDefinition[] = [
   { id: "debug-1", type: "DEBUG", size: "4x2" },
 ];
 
+function isWidgetType(value: unknown): value is keyof typeof WIDGET_REGISTRY {
+  return typeof value === "string" && value in WIDGET_REGISTRY;
+}
+
+function normalizeWidgetSize(type: keyof typeof WIDGET_REGISTRY, size: unknown): WidgetSize {
+  const registry = WIDGET_REGISTRY[type];
+  if (typeof size === "string" && registry.supportedSizes.includes(size as WidgetSize)) {
+    return size as WidgetSize;
+  }
+  return registry.defaultSize;
+}
+
+export function reconcileLayoutWithDefaults(stored: unknown): WidgetDefinition[] {
+  const storedList = Array.isArray(stored) ? stored : [];
+  const normalizedStored: WidgetDefinition[] = storedList
+    .filter(
+      (
+        item
+      ): item is { id: unknown; type: keyof typeof WIDGET_REGISTRY; size: unknown } =>
+        typeof item === "object" && item !== null && "id" in item && "type" in item && isWidgetType(item.type)
+    )
+    .map((item) => ({
+      id: String(item.id),
+      type: item.type,
+      size: normalizeWidgetSize(item.type, item.size),
+    }));
+
+  const existingTypes = new Set(normalizedStored.map((widget) => widget.type));
+  const missingDefaults = DEFAULT_LAYOUT.filter((widget) => !existingTypes.has(widget.type));
+
+  return [...normalizedStored, ...missingDefaults];
+}
+
 export function LayoutProvider(props: { children: JSX.Element }) {
   const [layout, setLayout] = createSignal<WidgetDefinition[]>(DEFAULT_LAYOUT);
   const [isEditing, setIsEditing] = createSignal(false);
@@ -32,7 +65,10 @@ export function LayoutProvider(props: { children: JSX.Element }) {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        setLayout(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        const reconciled = reconcileLayoutWithDefaults(parsed);
+        setLayout(reconciled);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(reconciled));
       } catch (e) {
         console.error("Failed to parse layout from localStorage", e);
       }
