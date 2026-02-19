@@ -36,7 +36,8 @@ describe("HorizonCurve", () => {
 
   describe("rendering", () => {
     it("renders horizon-curve element", async () => {
-      vi.setSystemTime(new Date("2026-01-21T12:00:00"));
+      // 07:00:00Z == 12:00:00 in Asia/Tashkent
+      vi.setSystemTime(new Date("2026-01-21T07:00:00Z"));
       const { container } = renderWithProvider(() => <HorizonCurve />);
 
       await waitFor(() => {
@@ -46,7 +47,7 @@ describe("HorizonCurve", () => {
     });
 
     it("does not render horizon-rim element", async () => {
-      vi.setSystemTime(new Date("2026-01-21T12:00:00"));
+      vi.setSystemTime(new Date("2026-01-21T07:00:00Z"));
       const { container } = renderWithProvider(() => <HorizonCurve />);
 
       await waitFor(() => {
@@ -58,7 +59,7 @@ describe("HorizonCurve", () => {
 
   describe("cycle-based styling", () => {
     it("applies day class during day", async () => {
-      vi.setSystemTime(new Date("2026-01-21T12:00:00"));
+      vi.setSystemTime(new Date("2026-01-21T07:00:00Z"));
       const { container } = renderWithProvider(() => <HorizonCurve />);
 
       await waitFor(() => {
@@ -68,7 +69,8 @@ describe("HorizonCurve", () => {
     });
 
     it("applies dusk class during dusk", async () => {
-      vi.setSystemTime(new Date("2026-01-21T17:45:00"));
+      // 12:45:00Z == 17:45:00 in Asia/Tashkent
+      vi.setSystemTime(new Date("2026-01-21T12:45:00Z"));
       const { container } = renderWithProvider(() => <HorizonCurve />);
 
       await waitFor(() => {
@@ -78,7 +80,8 @@ describe("HorizonCurve", () => {
     });
 
     it("applies night class during night", async () => {
-      vi.setSystemTime(new Date("2026-01-21T23:00:00"));
+      // 18:00:00Z == 23:00:00 in Asia/Tashkent
+      vi.setSystemTime(new Date("2026-01-21T18:00:00Z"));
       const { container } = renderWithProvider(() => <HorizonCurve />);
 
       await waitFor(() => {

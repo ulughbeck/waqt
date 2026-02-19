@@ -16,6 +16,7 @@ import {
   SeasonWidget,
   SolarTimesWidget,
   ProgressWidget,
+  YearMapWidget,
   DebugWidget,
 } from "../widgets";
 import { WidgetType, WidgetDefinition } from "../widgets/types";
@@ -26,8 +27,24 @@ const WidgetMap: Record<WidgetType, (props: { size: any }) => any> = {
   SOLAR: SolarTimesWidget,
   SEASON: SeasonWidget,
   PROGRESS: ProgressWidget,
+  YEAR_MAP: YearMapWidget,
   DEBUG: DebugWidget,
 };
+
+function prioritizeDebugWidget(
+  widgets: WidgetDefinition[],
+  debugEnabled: boolean
+): WidgetDefinition[] {
+  if (!debugEnabled) return widgets;
+
+  const debugWidget = widgets.find((widget) => widget.type === "DEBUG");
+  if (!debugWidget) return widgets;
+
+  return [
+    debugWidget,
+    ...widgets.filter((widget) => widget.id !== debugWidget.id),
+  ];
+}
 
 const SortableWidget = (props: { item: WidgetDefinition }) => {
   const sortable = createSortable(props.item.id);
@@ -62,10 +79,12 @@ export function WidgetGrid() {
   const { layout, updateLayout, isEditing, persistLayout } = useLayout();
   const debug = useDebug();
 
-  const [localLayout, setLocalLayout] = createSignal(layout());
+  const [localLayout, setLocalLayout] = createSignal(
+    prioritizeDebugWidget(layout(), debug.state().enabled)
+  );
 
   createEffect(() => {
-    setLocalLayout(layout());
+    setLocalLayout(prioritizeDebugWidget(layout(), debug.state().enabled));
   });
 
   const visibleWidgets = createMemo(() => {

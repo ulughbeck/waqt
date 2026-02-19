@@ -16,10 +16,11 @@ const LayoutContext = createContext<LayoutContextValue>();
 const STORAGE_KEY = "waqt.layout";
 
 const DEFAULT_LAYOUT: WidgetDefinition[] = [
-  { id: "prayer-1", type: "PRAYER", size: "4x2" },
+  { id: "progress-1", type: "PROGRESS", size: "4x2" },
+  { id: "year-map-1", type: "YEAR_MAP", size: "4x2" },
   { id: "solar-1", type: "SOLAR", "size": "2x2" },
   { id: "season-1", type: "SEASON", "size": "2x2" },
-  { id: "progress-1", type: "PROGRESS", "size": "4x2" },
+  { id: "prayer-1", type: "PRAYER", size: "4x2" },
   { id: "debug-1", type: "DEBUG", size: "4x2" },
 ];
 

@@ -29,7 +29,8 @@ describe("SkyClock", () => {
   beforeEach(() => {
     localStorage.clear();
     vi.useFakeTimers();
-    vi.setSystemTime(new Date("2026-01-21T13:36:54"));
+    // 08:36:54Z == 13:36:54 in Asia/Tashkent (UTC+5)
+    vi.setSystemTime(new Date("2026-01-21T08:36:54Z"));
   });
 
   afterEach(() => {
@@ -74,7 +75,8 @@ describe("SkyClock", () => {
   });
 
   it("displays midnight correctly", async () => {
-    vi.setSystemTime(new Date("2026-01-21T00:00:00"));
+    // 19:00:00Z on Jan 20 == 00:00:00 on Jan 21 in Asia/Tashkent
+    vi.setSystemTime(new Date("2026-01-20T19:00:00Z"));
     const { container } = renderWithProvider(() => <SkyClock />);
 
     await waitFor(() => {
@@ -88,7 +90,8 @@ describe("SkyDate", () => {
   beforeEach(() => {
     localStorage.clear();
     vi.useFakeTimers();
-    vi.setSystemTime(new Date("2026-01-21T13:36:54"));
+    // 08:36:54Z == 13:36:54 in Asia/Tashkent (UTC+5)
+    vi.setSystemTime(new Date("2026-01-21T08:36:54Z"));
   });
 
   afterEach(() => {
@@ -117,7 +120,8 @@ describe("SkyDate", () => {
   });
 
   it("updates date at midnight", async () => {
-    vi.setSystemTime(new Date("2026-01-21T23:59:59"));
+    // 18:59:59Z == 23:59:59 in Asia/Tashkent
+    vi.setSystemTime(new Date("2026-01-21T18:59:59Z"));
     const { container } = renderWithProvider(() => <SkyDate />);
 
     await waitFor(() => {

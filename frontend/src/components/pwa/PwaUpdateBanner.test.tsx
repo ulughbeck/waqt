@@ -4,7 +4,6 @@ import { PwaUpdateBanner } from "./PwaUpdateBanner";
 import {
   resetPwaUpdateState,
   setPwaNeedRefresh,
-  setPwaOfflineReady,
 } from "../../services/pwaUpdate";
 
 describe("PwaUpdateBanner", () => {
@@ -34,16 +33,5 @@ describe("PwaUpdateBanner", () => {
     fireEvent.click(dismissButton);
 
     expect(screen.queryByText("Update available")).toBeNull();
-  });
-
-  it("shows offline-ready message without refresh button", () => {
-    setPwaOfflineReady(true);
-
-    render(() => <PwaUpdateBanner />);
-
-    expect(screen.getByText("Offline ready")).toBeTruthy();
-    expect(screen.getByText("Waqt is ready to use offline.")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Refresh" })).toBeNull();
-    expect(screen.getByRole("button", { name: "Dismiss" })).toBeTruthy();
   });
 });

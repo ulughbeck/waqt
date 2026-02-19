@@ -36,7 +36,8 @@ describe("SkyStars", () => {
 
   describe("container", () => {
     it("renders sky-stars container", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      // 21:00:00Z on Jan 20 == 02:00:00 on Jan 21 in Asia/Tashkent
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -46,7 +47,7 @@ describe("SkyStars", () => {
     });
 
     it("has aria-hidden attribute for accessibility", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -58,7 +59,7 @@ describe("SkyStars", () => {
 
   describe("visibility by cycle", () => {
     it("shows stars at full opacity during night", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -70,7 +71,8 @@ describe("SkyStars", () => {
     });
 
     it("shows stars with reduced opacity during dusk", async () => {
-      vi.setSystemTime(new Date("2026-01-21T17:45:00"));
+      // 12:45:00Z == 17:45:00 in Asia/Tashkent
+      vi.setSystemTime(new Date("2026-01-21T12:45:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -94,7 +96,8 @@ describe("SkyStars", () => {
     });
 
     it("hides stars during day with zero opacity", async () => {
-      vi.setSystemTime(new Date("2026-01-21T12:00:00"));
+      // 07:00:00Z == 12:00:00 in Asia/Tashkent
+      vi.setSystemTime(new Date("2026-01-21T07:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -106,7 +109,7 @@ describe("SkyStars", () => {
     });
 
     it("does not render star elements during day", async () => {
-      vi.setSystemTime(new Date("2026-01-21T12:00:00"));
+      vi.setSystemTime(new Date("2026-01-21T07:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -118,7 +121,7 @@ describe("SkyStars", () => {
 
   describe("star rendering", () => {
     it("renders approximately 50 stars during night", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -128,7 +131,7 @@ describe("SkyStars", () => {
     });
 
     it("renders stars with position styles", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -144,7 +147,7 @@ describe("SkyStars", () => {
     });
 
     it("marks some stars with twinkle class", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {
@@ -155,7 +158,7 @@ describe("SkyStars", () => {
     });
 
     it("twinkling stars have twinkle duration style", async () => {
-      vi.setSystemTime(new Date("2026-01-21T02:00:00"));
+      vi.setSystemTime(new Date("2026-01-20T21:00:00Z"));
       const { container } = renderWithProvider(() => <SkyStars />);
 
       await waitFor(() => {

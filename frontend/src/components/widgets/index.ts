@@ -3,4 +3,5 @@ export * from "./PrayerWidget";
 export * from "./SeasonWidget";
 export * from "./SolarTimesWidget";
 export * from "./ProgressWidget";
+export * from "./YearMapWidget";
 export * from "./DebugWidget";
