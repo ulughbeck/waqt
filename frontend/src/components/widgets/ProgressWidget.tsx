@@ -7,22 +7,13 @@ import "./ProgressWidget.css";
 
 const SEGMENT_COUNT = 24;
 
-const DAY_SEGMENT_COLORS = [
-  "#4A90D9", "#5398DD", "#5EA1E1", "#6BB3E0",
-  "#FF6B35", "#FF7B3B", "#FF8C42", "#FF9F5A",
-  "#FFA84F", "#FFB552", "#FFC55A", "#FFD700",
-  "#FFD700", "#FFC55A", "#FFB552", "#FFA84F",
-  "#FF9F5A", "#FF8C42", "#FF7B3B", "#FF6B35",
-  "#6BB3E0", "#5EA1E1", "#5398DD", "#4A90D9",
-];
-
-const NIGHT_SEGMENT_COLORS = [
-  "#FF6B35", "#F05F41", "#E85A4F", "#CC4A63",
-  "#6B457F", "#5C3D7A", "#4A4278", "#3D4A7A",
-  "#314A76", "#2B4A6F", "#223B59", "#1A1A2E",
-  "#0D0D1A", "#1A1A2E", "#223B59", "#2B4A6F",
-  "#3D4A7A", "#4A4278", "#5C3D7A", "#6B457F",
-  "#CC4A63", "#E85A4F", "#F05F41", "#FF6B35",
+export const PROGRESS_SEGMENT_COLORS = [
+  "#4A90D9", "#6BB3E0",
+  "#FF6B35", "#FF7438", "#FF7E3D", "#FF8C42", "#FF9A4C",
+  "#FFA84F", "#FFB552", "#FFC55A", "#FFD700", "#FFDF33",
+  "#FFDF33", "#FFD700", "#FFC55A", "#FFB552", "#FFA84F",
+  "#FF9A4C", "#FF8C42", "#FF7E3D", "#FF7438", "#FF6B35",
+  "#6BB3E0", "#4A90D9",
 ];
 
 export function ProgressWidget(props: WidgetProps) {
@@ -78,7 +69,7 @@ export function ProgressWidget(props: WidgetProps) {
     return `${phaseLabel()} progress mode`;
   });
 
-  const segmentColors = createMemo(() => (isNight() ? NIGHT_SEGMENT_COLORS : DAY_SEGMENT_COLORS));
+  const segmentColors = createMemo(() => PROGRESS_SEGMENT_COLORS);
 
   return (
     <WidgetCard 
