@@ -7,7 +7,7 @@ import "./ProgressWidget.css";
 
 const SEGMENT_COUNT = 24;
 
-export const PROGRESS_SEGMENT_COLORS = [
+export const DAY_PROGRESS_SEGMENT_COLORS = [
   "#4A90D9", "#6BB3E0",
   "#FF6B35", "#FF7438", "#FF7E3D", "#FF8C42", "#FF9A4C",
   "#FFA84F", "#FFB552", "#FFC55A", "#FFD700", "#FFDF33",
@@ -15,6 +15,17 @@ export const PROGRESS_SEGMENT_COLORS = [
   "#FF9A4C", "#FF8C42", "#FF7E3D", "#FF7438", "#FF6B35",
   "#6BB3E0", "#4A90D9",
 ];
+
+export const NIGHT_PROGRESS_SEGMENT_COLORS = [
+  "#C44F1E", "#A84218",
+  "#0E2A4A", "#143459", "#1A3E69", "#214978", "#285488",
+  "#2F5F97", "#376AA7", "#3F75B6", "#4A82C6", "#5A93D7",
+  "#5A93D7", "#4A82C6", "#3F75B6", "#376AA7", "#2F5F97",
+  "#285488", "#214978", "#1A3E69", "#143459", "#0E2A4A",
+  "#A84218", "#C44F1E",
+];
+
+export const PROGRESS_SEGMENT_COLORS = DAY_PROGRESS_SEGMENT_COLORS;
 
 export function ProgressWidget(props: WidgetProps) {
   const { cycle, helpers, time } = useTime();
@@ -69,7 +80,9 @@ export function ProgressWidget(props: WidgetProps) {
     return `${phaseLabel()} progress mode`;
   });
 
-  const segmentColors = createMemo(() => PROGRESS_SEGMENT_COLORS);
+  const segmentColors = createMemo(() =>
+    isNight() ? NIGHT_PROGRESS_SEGMENT_COLORS : DAY_PROGRESS_SEGMENT_COLORS
+  );
 
   return (
     <WidgetCard 

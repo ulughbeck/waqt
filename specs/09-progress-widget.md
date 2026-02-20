@@ -34,17 +34,21 @@ This widget renders a segmented progress bar and countdown text for the current 
 - Playhead: orange dot (`#FF6B35`) with glow
 - Future segments: reduced opacity (`0.3`)
 
-### Simplified color logic
-Use one unified palette for both day and night display states:
-- Exactly **2 blue segments on the left**
-- Exactly **2 blue segments on the right**
-- All middle segments represent day colors (warm orange/yellow gradient)
+### Color logic
+Use cycle-specific palettes with mirrored edge markers:
 
-Palette used in code (`ProgressWidget.tsx`):
-- edges: `#4A90D9`, `#6BB3E0` ... `#6BB3E0`, `#4A90D9`
-- middle: warm progression from `#FF6B35` to `#FFD700` and back
+- Day palette:
+  - Exactly **2 blue segments on the left**
+  - Exactly **2 blue segments on the right**
+  - Middle segments represent day colors (warm orange/yellow gradient)
+- Night palette:
+  - Exactly **2 dark-orange segments on the left**
+  - Exactly **2 dark-orange segments on the right**
+  - Middle segments represent night colors (deep-to-light blue gradient and back)
 
-This intentionally replaces the previous night-specific dark gradient.
+Palettes in code (`ProgressWidget.tsx`):
+- `DAY_PROGRESS_SEGMENT_COLORS`: blue edges + warm middle
+- `NIGHT_PROGRESS_SEGMENT_COLORS`: dark-orange edges + blue middle
 
 ## Accessibility
 - Progress container uses:

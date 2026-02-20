@@ -1,7 +1,11 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@solidjs/testing-library";
-import { ProgressWidget, PROGRESS_SEGMENT_COLORS } from "./ProgressWidget";
+import {
+  DAY_PROGRESS_SEGMENT_COLORS,
+  NIGHT_PROGRESS_SEGMENT_COLORS,
+  ProgressWidget,
+} from "./ProgressWidget";
 
 const dayStart = new Date(2026, 0, 26, 6, 0, 0);
 const dayEnd = new Date(2026, 0, 26, 18, 0, 0);
@@ -22,12 +26,20 @@ vi.mock("~/providers/useTime", () => ({
 }));
 
 describe("ProgressWidget", () => {
-  it("uses unified segment palette with 2 blue edge segments", () => {
-    expect(PROGRESS_SEGMENT_COLORS).toHaveLength(24);
-    expect(PROGRESS_SEGMENT_COLORS[0]).toBe("#4A90D9");
-    expect(PROGRESS_SEGMENT_COLORS[1]).toBe("#6BB3E0");
-    expect(PROGRESS_SEGMENT_COLORS[22]).toBe("#6BB3E0");
-    expect(PROGRESS_SEGMENT_COLORS[23]).toBe("#4A90D9");
+  it("uses day palette with 2 blue edge segments", () => {
+    expect(DAY_PROGRESS_SEGMENT_COLORS).toHaveLength(24);
+    expect(DAY_PROGRESS_SEGMENT_COLORS[0]).toBe("#4A90D9");
+    expect(DAY_PROGRESS_SEGMENT_COLORS[1]).toBe("#6BB3E0");
+    expect(DAY_PROGRESS_SEGMENT_COLORS[22]).toBe("#6BB3E0");
+    expect(DAY_PROGRESS_SEGMENT_COLORS[23]).toBe("#4A90D9");
+  });
+
+  it("uses night palette with dark-orange edge segments", () => {
+    expect(NIGHT_PROGRESS_SEGMENT_COLORS).toHaveLength(24);
+    expect(NIGHT_PROGRESS_SEGMENT_COLORS[0]).toBe("#C44F1E");
+    expect(NIGHT_PROGRESS_SEGMENT_COLORS[1]).toBe("#A84218");
+    expect(NIGHT_PROGRESS_SEGMENT_COLORS[22]).toBe("#A84218");
+    expect(NIGHT_PROGRESS_SEGMENT_COLORS[23]).toBe("#C44F1E");
   });
 
   it("renders detailed view when size is 4x2", () => {
@@ -48,13 +60,15 @@ describe("ProgressWidget", () => {
     expect(screen.getByText("50%")).toBeDefined();
   });
 
-  it("renders night mode using the same unified palette", () => {
+  it("renders night mode with cycle-specific palette", () => {
     mockState.cycle = "night";
     const { container } = render(() => <ProgressWidget size="4x2" />);
     const segments = Array.from(container.querySelectorAll(".progress-bar__segment"));
     const progressbar = container.querySelector('[role="progressbar"]');
 
     expect(segments).toHaveLength(24);
+    expect((segments[0] as HTMLElement).style.backgroundColor).toBe("rgb(196, 79, 30)");
+    expect((segments[2] as HTMLElement).style.backgroundColor).toBe("rgb(14, 42, 74)");
     expect(progressbar?.getAttribute("aria-label")).toContain("Night progress");
   });
 });
